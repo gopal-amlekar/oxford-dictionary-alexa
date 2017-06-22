@@ -13,28 +13,16 @@
 								
 		console.log ("Trying Oxford API now");
 		
-		/*
+		
     	return request({
       	"method":"GET", 
       	"uri": oxfordURL,
       	"json": true,
       	"headers": hdr
     	});		
-			*/
+		
 			
-		dict_response = request({
-      	"method":"GET", 
-      	"uri": oxfordURL,
-      	"json": true,
-      	"headers": hdr
-    	});
-    	
-    	res = word_id + " is " + dict_response;
-		console.log (res);
-		    	
-    	res = dict_response;
-    	
-    	return res;
+		
     	
     		   		 
     		// raw response 
@@ -150,7 +138,7 @@ module.exports =
 						'outputSpeech':
 						{
 							'type': 'PlainText',
-							'text': output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0],
+							'text': gadget + " is " + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0],
 						},
 
 						'reprompt':
