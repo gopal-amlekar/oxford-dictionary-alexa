@@ -39,55 +39,9 @@ module.exports =
 	processIntent: function (intent, callback)
 	{
 		var intent_name = intent.name;
-		var gadget = "No Gadget";
-			
-		var message = 
-		{
-			'command': "Waiting for command",
-			'message' : "No message",
-			'gadget' : gadget
-		};
+		var gadget = "Gadget";
 		
-		if (intent_name === 'TurnOnIntent')
-		{
-			console.log ('Recd Turn On Intent');
-			gadget = intent.slots.Item.value.toLowerCase();
-			console.log (gadget);
-			message = 
-			{
-				'command': 'TURN_ON',
-				'message': 'My home is Turning on the gadget',
-				'gadget':  gadget
-			};
-			this.sendPNCommand (message, callback);
-		}
-		else if (intent_name === 'TurnOffIntent')
-		{
-			console.log ('Recd Turn Off Intent');
-			gadget = intent.slots.Item.value.toLowerCase();
-			message = 
-			{
-				'command': 'TURN_OFF',
-				'message': 'My home is Turning off the gadget ',
-				'gadget':  gadget
-			};
-			this.sendPNCommand (message, callback);						
-		}
-		else if (intent_name === 'SetValueIntent')
-		{
-			console.log ('Recd set value Intent');
-			gadget = intent.slots.Item.value.toLowerCase();
-			var value = intent.slots.amount.value;
-			message = 
-			{
-				'command': 'SET_VALUE',
-				'message': 'Setting value ',
-				'gadget':  gadget,
-				'value' : value
-			};
-			this.sendPNCommand (message, callback);				
-		}
-		else if (intent_name === 'AMAZON.HelpIntent')
+		if (intent_name === 'AMAZON.HelpIntent')
 		{
 			console.log ('User Asking for Help');
 			var sessionAttributes ={};
@@ -96,9 +50,9 @@ module.exports =
 				sessionAttributes, 
 				this.buildSpeechletResponse
 				(
-					"My Home Title",
-					"Welcome to my home. You can ask me to turn on a gadget or turn off a gadget." ,
-					"Do you want me to do something?", false)
+					"Oxford dictionary title",
+					"Welcome to oxford dictionary. Ask me meaning of any word.", 
+               "What would you ask about?", false)
 			);
 		}
 		else if (intent_name === 'AMAZON.StopIntent' || intent_name === 'AMAZON.CancelIntent') 
@@ -110,8 +64,8 @@ module.exports =
 				sessionAttributes, 
 				this.buildSpeechletResponse
 				(
-					"My Home Title",
-					"Hello user, Thank you for using my home" ,
+					"Oxford dictionary title",
+					"Hello user, Thank you for using Oxford dictionary" ,
 					"", true)
 			);			
 		}
@@ -133,22 +87,40 @@ module.exports =
 			askOxford(gadget).then(function(output) 
 			{
 				console.log ("Next in the chain being executed");
-				console.log(output);				
+				console.log(output);
+				
+				
+				var nums = [ "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"];
+	
+				count = (resp.results[0].lexicalEntries[0].entries[0].senses).length;
+				
+				var str = "";
+				
+				if (count > 1)
+					str = "There are " + count + " definitions of the word " + resp.results[0].id;
+				else if (count == 1)
+					str = "There is " + count + " definitions of the word " + resp.results[0].id;
+				else
+					str = "No definition found or word not understood";
+	
+				for (counter = 0; counter < count; counter++)
+				{ 
+					if (counter < nums.length)	
+						str = str + " The " + nums[counter] + " is " + resp.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "\n"; 
+					else
+						str = str + " The next is " + resp.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "\n";		
+				}
+
+
 				callback(sessionAttributes, {
 						'outputSpeech':
 						{
 							'type': 'PlainText',
 							'text': gadget + " is " + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0],
+							'text': str,
 						},
 
-						'reprompt':
-						{
-							'outputSpeech':
-							{
-								'type': 'PlainText',
-								'text': "reprompt"
-							}			
-						},
+						'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
 						'shouldEndSession': true
 				});				
 				
