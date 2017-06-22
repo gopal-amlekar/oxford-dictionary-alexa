@@ -30,7 +30,7 @@
     	});
     	
     	res = word_id + " is " + dict_response;
-    	
+    	res = dict_response;
     	return res;
     	
     		   		 
