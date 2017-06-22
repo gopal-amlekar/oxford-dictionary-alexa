@@ -97,21 +97,22 @@ module.exports =
 				var str = "";
 				
 				if (count > 1)
-					str = "There are " + count + " definitions of the word " + output.results[0].id + "<break strength = 'strong'>";
+					str =  "<speak>There are " + count + " definitions of the word " + output.results[0].id + "<break>";
 				else if (count == 1)
-					str = "There is " + count + " definitions of the word " + output.results[0].id;
+					str = "<speak>There is " + count + " definition of the word " + output.results[0].id;
 				else
 					str = "No definition found or word not understood";
 	
 				for (counter = 0; counter < count; counter++)
 				{ 
 					if (counter < nums.length)	
-						str = str + " The " + nums[counter] + " is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "\n"; 
+						str = str + " The " + nums[counter] + " is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "."; 
 					else
-						str = str + " The next is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "\n";		
+						str = str + " The next is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + ".";		
 				}
 
-
+				str = str + "</speak>";
+				
 				callback(sessionAttributes, {
 						'outputSpeech':
 						{
