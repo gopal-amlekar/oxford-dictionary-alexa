@@ -98,11 +98,11 @@ module.exports =
 				
 				//<speak> There are<emphasis>4 </emphasis><break/> definitions.<emphasis>First </emphasis><break strength="x-strong"/> is this </speak> 
 				if (count > 1)
-					str =  "<speak>There are <emphasis>" + count + "</emphasis><break/> definitions of the word " + output.results[0].id + "<break time='1s'/>";
+					str =  "<speak><prosody rate='slow'>There are <emphasis>" + count + "</emphasis><break/> definitions of the word " + output.results[0].id + "<break time='1s'/>";
 				else if (count == 1)
-					str = "<speak>There is <emphasis>" + count + "</emphasis><break/> definition of the word " + output.results[0].id + "<break time='1s'/>";
+					str = "<speak><prosody rate='slow'>There is <emphasis>" + count + "</emphasis><break/> definition of the word " + output.results[0].id + "<break time='1s'/>";
 				else
-					str = "No definition found or word not understood";
+					str = "<speak><prosody rate='slow'>No definition found or word not understood";
 	
 				for (counter = 0; counter < count; counter++)
 				{ 
@@ -112,7 +112,7 @@ module.exports =
 						str = str + " The <emphasis>next</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>";		
 				}
 
-				str = str + "</speak>";
+				str = str + "</prosody></speak>";
 				
 				callback(sessionAttributes, {
 						'outputSpeech':
