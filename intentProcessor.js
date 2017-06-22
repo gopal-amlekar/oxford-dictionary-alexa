@@ -97,7 +97,7 @@ module.exports =
 				var str = "";
 				
 				if (count > 1)
-					str = "There are " + count + " definitions of the word " + output.results[0].id;
+					str = "There are " + count + " definitions of the word " + output.results[0].id + "<break strength = 'strong'>";
 				else if (count == 1)
 					str = "There is " + count + " definitions of the word " + output.results[0].id;
 				else
