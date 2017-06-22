@@ -117,7 +117,7 @@ module.exports =
 						{
 							'type': 'SSML',
 							//'text': "<speak>" + gadget + " is " + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + ".</speak>",
-							'text': str,
+							'ssml': str,
 						},
 
 						'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
