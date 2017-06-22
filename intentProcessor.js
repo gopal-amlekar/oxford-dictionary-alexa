@@ -111,7 +111,7 @@ module.exports =
 				}
 				else if (count == 1){
 					str = "<speak><prosody rate='slow'>There is <emphasis>" + count + "</emphasis><break/> definition of the word " + output.results[0].id + "<break time='1s'/>";
-					str = str + " The <emphasis>definition</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>";
+					str = str + " The <emphasis>definition</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + "<break time='1s'/>";
 				}
 				else{
 					str = "<speak><prosody rate='slow'>No definition found or word not understood";
