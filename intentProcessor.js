@@ -92,23 +92,23 @@ module.exports =
 				
 				var nums = [ "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"];
 	
-				count = (resp.results[0].lexicalEntries[0].entries[0].senses).length;
+				count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
 				
 				var str = "";
 				
 				if (count > 1)
-					str = "There are " + count + " definitions of the word " + resp.results[0].id;
+					str = "There are " + count + " definitions of the word " + output.results[0].id;
 				else if (count == 1)
-					str = "There is " + count + " definitions of the word " + resp.results[0].id;
+					str = "There is " + count + " definitions of the word " + output.results[0].id;
 				else
 					str = "No definition found or word not understood";
 	
 				for (counter = 0; counter < count; counter++)
 				{ 
 					if (counter < nums.length)	
-						str = str + " The " + nums[counter] + " is " + resp.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "\n"; 
+						str = str + " The " + nums[counter] + " is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "\n"; 
 					else
-						str = str + " The next is " + resp.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "\n";		
+						str = str + " The next is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "\n";		
 				}
 
 
