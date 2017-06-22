@@ -31,6 +31,7 @@
     	
     	res = word_id + " is " + dict_response;
     	res = dict_response;
+    	console.log (res);
     	return res;
     	
     		   		 
