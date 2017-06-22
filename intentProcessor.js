@@ -13,15 +13,27 @@
 								
 		console.log ("Trying Oxford API now");
 		
-		
+		/*
     	return request({
       	"method":"GET", 
       	"uri": oxfordURL,
       	"json": true,
       	"headers": hdr
     	});		
+			*/
 			
-    		 
+		dict_response = request({
+      	"method":"GET", 
+      	"uri": oxfordURL,
+      	"json": true,
+      	"headers": hdr
+    	});
+    	
+    	res = word_id + " is " + dict_response;
+    	
+    	return res;
+    	
+    		   		 
     		// raw response 
     		//console.log(response);
 	}

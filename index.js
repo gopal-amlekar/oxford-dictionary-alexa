@@ -70,8 +70,8 @@ app.post(process.env.WEB_APP_ROUTE, function(request, response){
             console.log ('Launch request');
             var speechletResponse = intentProc.buildSpeechletResponse
             ("My Home Title", 
-            "Welcome to my home, please tell me turn on or off some gadget ", 
-            "What would you like to do?", 
+            "Welcome to oxford dictionary. Ask me meaning of any word.", 
+            "What would you ask about?", 
             false);
             ///callback (null, intentProc.buildResponse (sessionAttributes, speechletResponse));
             response.send(intentProc.buildResponse (sessionAttributes, speechletResponse));
