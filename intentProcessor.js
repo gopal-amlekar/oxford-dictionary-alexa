@@ -97,7 +97,7 @@ module.exports =
 				var str = "";
 				
 				if (count > 1)
-					str =  "<speak>There are " + count + " definitions of the word " + output.results[0].id + "<break>";
+					str =  "<speak>There are " + count + " definitions of the word " + output.results[0].id + "<break/>";
 				else if (count == 1)
 					str = "<speak>There is " + count + " definition of the word " + output.results[0].id;
 				else
