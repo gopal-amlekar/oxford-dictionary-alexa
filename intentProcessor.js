@@ -4,13 +4,11 @@ function askOxford (word_id)
 {
 	var request = require('request-promise');
 				
-	var app_id = process.env.OXFORD_APP_ID;	//'b93e7377'
-	var app_key = process.env.OXFORD_APP_KEY; //'5d7ed5aacc033b4775b950e3e2438058'
-	var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/" + word_id + "/definitions";
-	var hdr = {"Accept":"application/json", "app_id": app_id, "app_key": app_key }; // request headers 
-
-	var output = "Querying the Oxford dictionary";
-							
+	var app_id = process.env.OXFORD_APP_ID;	// Get this from the Oxford dictionary API webpage
+	var app_key = process.env.OXFORD_APP_KEY; // Get this from the Oxford dictionary API webpage
+	var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/" + word_id;// + "/definitions";
+	var hdr = {"Accept":"application/json", "app_id": app_id, "app_key": app_key };
+						
 	console.log ("Trying Oxford API now");
 	
 	
@@ -22,14 +20,12 @@ function askOxford (word_id)
 	});		
 }
 
-
-
 module.exports =
 {	
 	processIntent: function (intent, callback)
 	{
 		var intent_name = intent.name;
-		var gadget = "Gadget";
+		var word_id = "DummyWord";
 		
 		if (intent_name === 'AMAZON.HelpIntent')
 		{
@@ -59,22 +55,16 @@ module.exports =
 					"", true)
 			);			
 		}
-
-
-
 		else if (intent_name === 'OxfordIntent')
 		{
-			gadget = intent.slots.Word.value.toLowerCase();
-			//var value = intent.slots.amount.value;
+			word_id = intent.slots.Word.value.toLowerCase();
 
 			var sessionAttributes ={};
 					
 			console.log ('Recd oxford dictionary Intent');
-			//console.log (gadget)
+			//console.log (word_id)
 			
-			//gadget = "test_gadget";
-			
-			askOxford(gadget).then(function(output) 
+			askOxford(word_id).then(function(output) 
 			{
 				console.log ("Next in the chain being executed");
 				console.log(output);
@@ -96,6 +86,16 @@ module.exports =
 							str = str + " The <emphasis>" + nums[counter] + "</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>"; 
 						else
 							str = str + " The <emphasis>next</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>";		
+
+						if (resp.results[0].lexicalEntries[0].entries[0].senses[counter].hasOwnProperty('examples')) {
+							//str = str + "Example " + resp.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "\n";
+							str = str + "<emphasis>Example</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "<break time='1s'/>";
+						}
+						else {
+							str = str + "Example not available for this definition  <break time='1s'/>";
+						}
+						
+						
 					}
 
 				}
@@ -116,19 +116,15 @@ module.exports =
 						'outputSpeech':
 						{
 							'type': 'SSML',
-							//'text': "<speak>" + gadget + " is " + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + ".</speak>",
+							//'text': "<speak>" + word_id + " is " + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + ".</speak>",
 							'ssml': str,
 						},
 
 						'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
 						'shouldEndSession': true
 				});				
-				
-				
 			});				
 		}
-
-
 		else
 		{
 			console.log ("Recd invalid intent");
