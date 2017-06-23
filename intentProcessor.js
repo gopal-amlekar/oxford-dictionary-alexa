@@ -1,12 +1,12 @@
 
 
-function askOxford (word_id)
+function askOxford (word_id, url_path)
 {
 	var request = require('request-promise');
 				
 	var app_id = process.env.OXFORD_APP_ID;	// Get this from the Oxford dictionary API webpage
 	var app_key = process.env.OXFORD_APP_KEY; // Get this from the Oxford dictionary API webpage
-	var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/" + word_id;// + "/definitions";
+	var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/" + word_id + url_path;// + "/definitions";
 	var hdr = {"Accept":"application/json", "app_id": app_id, "app_key": app_key };
 						
 	console.log ("Trying Oxford API now");
@@ -63,8 +63,8 @@ module.exports =
 					
 			console.log ('Recd oxford dictionary Intent');
 			//console.log (word_id)
-			
-			askOxford(word_id).then(function(output) 
+			url_path = "";
+			askOxford(word_id, url_path).then(function(output) 
 			{
 				console.log ("Next in the chain being executed");
 				console.log(output);
@@ -78,7 +78,7 @@ module.exports =
 
 					for (counter = 0; counter < count; counter++)
 					{ 
-						str = str + " The <emphasis>" + counter + "</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>"; 
+						str = str + "<emphasis>" + counter + "</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>"; 
 
 						if (output.results[0].lexicalEntries[0].entries[0].senses[counter].hasOwnProperty('examples'))
 						{
@@ -93,6 +93,14 @@ module.exports =
 				else if (count == 1){
 					str = "<speak><prosody rate='medium'>There is <emphasis>" + count + "</emphasis><break/> definition of the word " + output.results[0].id + "<break time='1s'/>";
 					str = str + " The definition is <break/>" + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + "<break time='1s'/>";
+					if (output.results[0].lexicalEntries[0].entries[0].senses[counter].hasOwnProperty('examples'))
+					{
+						str = str + "<emphasis>Example</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "<break time='1s'/>";
+					}
+					else
+					{
+						str = str + "Example not available for this definition  <break time='1s'/>";
+					}				
 				}
 				else{
 					str = "<speak><prosody rate='medium'>No definition found or word not understood";
