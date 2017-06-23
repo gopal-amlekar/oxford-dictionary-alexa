@@ -60,7 +60,7 @@ module.exports =
 		else if (intent_name === 'OxfordIntent')
 		{
 			word_id = intent.slots.Word.value.toLowerCase();
-
+			console.log (word_id);
 			var sessionAttributes ={};
 					
 			console.log ('Recd oxford dictionary Intent');
@@ -130,7 +130,7 @@ module.exports =
 		else if (intent_name === 'SynonymIntent')
 		{
 			word_id = intent.slots.Word.value.toLowerCase();
-
+			console.log (word_id);
 			var sessionAttributes ={};
 					
 			console.log ('Recd oxford synonym Intent');
@@ -170,12 +170,27 @@ module.exports =
 						'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
 						'shouldEndSession': true
 				});				
-			});				
+			}).catch(function (err) {
+				console.log ('failed');
+				console.log(err.statusCode);
+				var str = "No results found in Oxford for the query";
+				callback({}, {
+				'outputSpeech':
+				{
+					'type': 'text',
+					'text': str,
+				},
+
+				'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
+				'shouldEndSession': true
+		});				
+					
+				});				
 		}
 		else if (intent_name === 'AntonymIntent')
 		{
 			word_id = intent.slots.Word.value.toLowerCase();
-
+			console.log (word_id);
 			var sessionAttributes ={};
 					
 			console.log ('Recd oxford antonym Intent');
