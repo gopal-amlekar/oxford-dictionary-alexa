@@ -87,7 +87,7 @@ module.exports =
 						else
 							str = str + " The <emphasis>next</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>";		
 
-						if (resp.results[0].lexicalEntries[0].entries[0].senses[counter].hasOwnProperty('examples')) {
+						if (output.results[0].lexicalEntries[0].entries[0].senses[counter].hasOwnProperty('examples')) {
 							//str = str + "Example " + resp.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "\n";
 							str = str + "<emphasis>Example</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "<break time='1s'/>";
 						}
