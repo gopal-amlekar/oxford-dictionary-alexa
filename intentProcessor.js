@@ -125,7 +125,23 @@ module.exports =
 						'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
 						'shouldEndSession': true
 				});				
-			});				
+			}).catch(function (err) {
+				console.log ('failed');
+				console.log(err.statusCode);
+				var str = "<speak>No results found in Oxford for the query</speak>";
+				var sessionAttributes ={};
+				callback(sessionAttributes, {
+				'outputSpeech':
+				{
+					'type': 'SSML',
+					'ssml': str,
+				},
+
+				'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
+				'shouldEndSession': true
+				});				
+					
+				});				
 		}
 		else if (intent_name === 'SynonymIntent')
 		{
@@ -231,9 +247,24 @@ module.exports =
 						'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
 						'shouldEndSession': true
 				});				
-			});				
-		}
+			}).catch(function (err) {
+				console.log ('failed');
+				console.log(err.statusCode);
+				var str = "<speak>No results found in Oxford for the query</speak>";
+				var sessionAttributes ={};
+				callback(sessionAttributes, {
+				'outputSpeech':
+				{
+					'type': 'SSML',
+					'ssml': str,
+				},
 
+				'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
+				'shouldEndSession': true
+				});				
+					
+				});				
+		}
 		else
 		{
 			console.log ("Recd invalid intent");
