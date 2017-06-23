@@ -11,7 +11,7 @@ function askOxford (word_id, url_path)
 	var hdr = {"Accept":"application/json", "app_id": app_id, "app_key": app_key };
 						
 	console.log ("Trying Oxford API now");
-	
+	console.log (oxfordURL);
 	
 	return request({
 	"method":"GET", 
