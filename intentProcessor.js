@@ -27,6 +27,7 @@ module.exports =
 	{
 		var intent_name = intent.name;
 		var word_id = "DummyWord";
+		console.log (intent_name);
 		
 		if (intent_name === 'AMAZON.HelpIntent')
 		{
@@ -154,6 +155,51 @@ module.exports =
 				}
 				else {
 					str = str + "Synonyms not available for this word";
+				}		
+				str = str + "</prosody></speak>";
+				
+				callback(sessionAttributes, {
+						'outputSpeech':
+						{
+							'type': 'SSML',
+							//'text': "<speak>" + word_id + " is " + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + ".</speak>",
+							'ssml': str,
+						},
+
+						'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
+						'shouldEndSession': true
+				});				
+			});				
+		}
+		else if (intent_name === 'AntonymIntent')
+		{
+			word_id = intent.slots.Word.value.toLowerCase();
+
+			var sessionAttributes ={};
+					
+			console.log ('Recd oxford antonym Intent');
+			//console.log (word_id)
+			url_path = "/entries/en/" + word_id + "/antonyms";
+			askOxford(word_id, url_path).then(function(output) 
+			{
+				console.log ("Next in the chain being executed");
+				console.log(output);
+				
+				
+				var str = "<speak><prosody rate='medium'> Some Antyonyms for " + output.results[0].id + " are <break time='1s'/>";
+								
+				if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('antonyms'))
+				{
+					var syn_len = (output.results[0].lexicalEntries[0].entries[0].senses[0].antonyms).length;
+					for (counter = 0; counter < syn_len; counter++)
+					{
+						if (counter == syn_len -1)
+							str = str + " and. ";
+						str = str + output.results[0].lexicalEntries[0].entries[0].senses[0].antonyms[counter].text + "<break time='1s'></break>";
+					}
+				}
+				else {
+					str = str + "Antyonyms not available for this word";
 				}		
 				str = str + "</prosody></speak>";
 				
