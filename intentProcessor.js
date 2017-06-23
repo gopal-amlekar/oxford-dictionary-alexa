@@ -71,16 +71,17 @@ module.exports =
 				console.log ("Next in the chain being executed");
 				console.log(output);
 				
-				count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
+				var count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
 				
 				var str = "";
 				
 				if (count > 1){
 					str =  "<speak><prosody rate='slow'>There are <emphasis>" + count + "</emphasis><break/> definitions of the word " + output.results[0].id + "<break time='1s'/>";
 
-					for (counter = 0; counter < count; counter++)
+					for (var counter = 0; counter < count; counter++)
 					{ 
-						str = str + "<emphasis>" + counter+1 + "</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>"; 
+						var num = counter + 1;
+						str = str + "<emphasis>" + num + "</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>"; 
 
 						if (output.results[0].lexicalEntries[0].entries[0].senses[counter].hasOwnProperty('examples'))
 						{
