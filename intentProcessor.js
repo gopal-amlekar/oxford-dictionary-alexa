@@ -1,41 +1,31 @@
 
 
-	function askOxford (word_id)
-	{
-		var request = require('request-promise');
+function askOxford (word_id)
+{
+	var request = require('request-promise');
 				
-		var app_id = 'b93e7377'
-		var app_key = '5d7ed5aacc033b4775b950e3e2438058'
-		var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/" + word_id + "/definitions";
-		var hdr = {"Accept":"application/json", "app_id": app_id, "app_key": app_key }; // request headers 
+	var app_id = process.env.OXFORD_APP_ID;	//'b93e7377'
+	var app_key = process.env.OXFORD_APP_KEY; //'5d7ed5aacc033b4775b950e3e2438058'
+	var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/" + word_id + "/definitions";
+	var hdr = {"Accept":"application/json", "app_id": app_id, "app_key": app_key }; // request headers 
 
-  		var output = "Querying the Oxford dictionary";
-								
-		console.log ("Trying Oxford API now");
-		
-		
-    	return request({
-      	"method":"GET", 
-      	"uri": oxfordURL,
-      	"json": true,
-      	"headers": hdr
-    	});		
-		
-			
-		
-    	
-    		   		 
-    		// raw response 
-    		//console.log(response);
-	}
+	var output = "Querying the Oxford dictionary";
+							
+	console.log ("Trying Oxford API now");
+	
+	
+	return request({
+	"method":"GET", 
+	"uri": oxfordURL,
+	"json": true,
+	"headers": hdr
+	});		
+}
 
 
 
 module.exports =
-{
-
-
-	
+{	
 	processIntent: function (intent, callback)
 	{
 		var intent_name = intent.name;
@@ -111,7 +101,7 @@ module.exports =
 				}
 				else if (count == 1){
 					str = "<speak><prosody rate='medium'>There is <emphasis>" + count + "</emphasis><break/> definition of the word " + output.results[0].id + "<break time='1s'/>";
-					str = str + " The <emphasis>definition</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + "<break time='1s'/>";
+					str = str + " The definition is <break/>" + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + "<break time='1s'/>";
 				}
 				else{
 					str = "<speak><prosody rate='medium'>No definition found or word not understood";
@@ -147,52 +137,6 @@ module.exports =
 	},
 	
 
-	
-	sendPNCommand: function  (message, callback)
-	{
-		var PN = require("pubnub");
-		var pn = new PN
-		({
-			ssl           : true,  // <- enable TLS Tunneling over TCP
-			publish_key   : process.env.PUB_NUB_PUBLISH_KEY,
-			subscribe_key : process.env.PUB_NUB_SUBSCRIBE_KEY
-		});
-		
-		var output = message['message'];
-		console.log ("Trying to send message");
-		console.log ("Channel is: ", process.env.PUB_NUB_CHANNEL_KEY);
-		pn.publish(
-			{
-				channel   : process.env.PUB_NUB_CHANNEL_KEY,
-				message   : message
-			},
-			
-			function (status, response)
-			{
-				console.log ("Callback fired");
-				if (status.error)
-				{
-					console.log("Failed publish", status, response);
-				}
-				else
-				{
-					console.log("Succeedded publish", status, response);
-				}
-			}
-		);
-		console.log ("Sent messge, exepcted callback");
-		//var speechletResponse = this.buildSpeechletResponse("My Home Title", output, "What else you want to do?", false);
-		var sessionAttributes = {};
-		//var resp = this.buildResponse(sessionAttributes, speechletResponse);
-		console.log ("Finally calling back");
-		//callback(null, resp);
-		callback
-		(
-			sessionAttributes,
-			this.buildSpeechletResponse("My Home Title", output, "What else you want to do?", true)
-		);
-	},
-	
 	
 	buildSpeechletResponse: function(title, output, repromptText, shouldEndSession)
 	{
