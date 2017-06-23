@@ -69,35 +69,26 @@ module.exports =
 				console.log ("Next in the chain being executed");
 				console.log(output);
 				
-				
-				var nums = [ "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"];
-	
 				count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
 				
 				var str = "";
 				
-				//<speak> There are<emphasis>4 </emphasis><break/> definitions.<emphasis>First </emphasis><break strength="x-strong"/> is this </speak> 
 				if (count > 1){
 					str =  "<speak><prosody rate='slow'>There are <emphasis>" + count + "</emphasis><break/> definitions of the word " + output.results[0].id + "<break time='1s'/>";
 
 					for (counter = 0; counter < count; counter++)
 					{ 
-						if (counter < nums.length)	
-							str = str + " The <emphasis>" + nums[counter] + "</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>"; 
-						else
-							str = str + " The <emphasis>next</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>";		
+						str = str + " The <emphasis>" + counter + "</emphasis><break/> is " + output.results[0].lexicalEntries[0].entries[0].senses[counter].definitions[0] + "<break time='1s'/>"; 
 
-						if (output.results[0].lexicalEntries[0].entries[0].senses[counter].hasOwnProperty('examples')) {
-							//str = str + "Example " + resp.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "\n";
+						if (output.results[0].lexicalEntries[0].entries[0].senses[counter].hasOwnProperty('examples'))
+						{
 							str = str + "<emphasis>Example</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "<break time='1s'/>";
 						}
-						else {
+						else
+						{
 							str = str + "Example not available for this definition  <break time='1s'/>";
 						}
-						
-						
 					}
-
 				}
 				else if (count == 1){
 					str = "<speak><prosody rate='medium'>There is <emphasis>" + count + "</emphasis><break/> definition of the word " + output.results[0].id + "<break time='1s'/>";
