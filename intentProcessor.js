@@ -141,13 +141,13 @@ module.exports =
 				
 //				count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
 				
-				var str = "<speak><prosody rate='medium'> The synonyms are <break time='1s'/>";
+				var str = "<speak><prosody rate='medium'> Some synonyms are <break time='1s'/>";
 								
 				if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('synonyms'))
 				{
 					var syn_len = (output.results[0].lexicalEntries[0].entries[0].senses[0].synonyms).length;
 					for (counter = 0; counter < syn_len; counter++)
-						str = str + output.results[0].lexicalEntries[0].entries[0].senses[0].synonyms[counter].text + "<break></break>";
+						str = str + output.results[0].lexicalEntries[0].entries[0].senses[0].synonyms[counter].text + "<break time='1s'></break>";
 				}
 				else {
 					str = str + "Synonyms not available for this word";
