@@ -131,16 +131,14 @@ module.exports =
 				var str = "<speak>No results found in Oxford for the query</speak>";
 				var sessionAttributes ={};
 				callback(sessionAttributes, {
-				'outputSpeech':
-				{
-					'type': 'SSML',
-					'ssml': str,
-				},
-
-				'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
-				'shouldEndSession': true
-				});				
-					
+					'outputSpeech':
+					{
+						'type': 'SSML',
+						'ssml': str,
+					},
+					'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
+					'shouldEndSession': true
+					});
 				});				
 		}
 		else if (intent_name === 'SynonymIntent')
