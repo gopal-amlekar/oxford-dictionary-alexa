@@ -139,7 +139,6 @@ module.exports =
 				console.log ("Next in the chain being executed");
 				console.log(output);
 				
-//				count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
 				
 				var str = "<speak><prosody rate='medium'> Some synonyms are <break time='1s'/>";
 								
@@ -147,7 +146,11 @@ module.exports =
 				{
 					var syn_len = (output.results[0].lexicalEntries[0].entries[0].senses[0].synonyms).length;
 					for (counter = 0; counter < syn_len; counter++)
+					{
+						if (counter == syn_len -1)
+							str = str + " and. ";
 						str = str + output.results[0].lexicalEntries[0].entries[0].senses[0].synonyms[counter].text + "<break time='1s'></break>";
+					}
 				}
 				else {
 					str = str + "Synonyms not available for this word";
