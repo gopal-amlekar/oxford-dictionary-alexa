@@ -141,7 +141,7 @@ module.exports =
 				console.log(output);
 				
 				
-				var str = "<speak><prosody rate='medium'> Some synonyms for " + output.results[0].id + "are <break time='1s'/>";
+				var str = "<speak><prosody rate='medium'> Some synonyms for " + output.results[0].id + ". are <break time='1s'/>";
 								
 				if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('synonyms'))
 				{
@@ -186,7 +186,7 @@ module.exports =
 				console.log(output);
 				
 				
-				var str = "<speak><prosody rate='medium'> Some Antyonyms for " + output.results[0].id + " are <break time='1s'/>";
+				var str = "<speak><prosody rate='medium'> Some Antyonyms for " + output.results[0].id + ". are <break time='1s'/>";
 								
 				if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('antonyms'))
 				{
