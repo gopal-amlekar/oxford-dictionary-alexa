@@ -173,17 +173,18 @@ module.exports =
 			}).catch(function (err) {
 				console.log ('failed');
 				console.log(err.statusCode);
-				var str = "No results found in Oxford for the query";
-				callback({}, {
+				var str = "<speak>No results found in Oxford for the query</speak>";
+				var sessionAttributes ={};
+				callback(sessionAttributes, {
 				'outputSpeech':
 				{
-					'type': 'text',
-					'text': str,
+					'type': 'SSML',
+					'ssml': str,
 				},
 
 				'reprompt':{'outputSpeech':{'type': 'PlainText','text': "reprompt"}},
 				'shouldEndSession': true
-		});				
+				});				
 					
 				});				
 		}
