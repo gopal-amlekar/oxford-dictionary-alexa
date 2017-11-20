@@ -70,15 +70,28 @@ module.exports =
 			{
 				console.log ("Next in the chain being executed");
 				console.log(output);
+				console.log ("printing results object");
 				console.log(output.results);
-				console.log(output.results[0].lexicalEntries);
-				console.log("outputing zeroth elements")
-				console.log(output.results[0]);
 				
+				console.log ("printing lexical entries object");
+				console.log(output.results[0].lexicalEntries);
+				console.log ("printing  entries object");
+				console.log(output.results[0].lexicalEntries[0].entries);
+				
+				console.log("outputing zeroth elements")
+				console.log ("here is the output.results[0]");
+				console.log(output.results[0]);
+				console.log ("here is the output.results[0].lexicalEntries[0]");
 				console.log(output.results[0].lexicalEntries[0]);
 				
-				var count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
+				console.log ("here is the output.results[0].lexicalEntries[0].entries[0]");
+				console.log(output.results[0].lexicalEntries[0].entries[0]);
 				
+				console.log ("and the senses");
+				console.log(output.results[0].lexicalEntries[0].entries[0].senses);
+				
+				var count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
+				console.log ("Found " + count + " definitions");
 				var str = "";
 				
 				if (count > 1){
