@@ -70,6 +70,12 @@ module.exports =
 			{
 				console.log ("Next in the chain being executed");
 				console.log(output);
+				console.log(output.results);
+				console.log(output.results[0].lexicalEntries);
+				console.log("outputing zeroth elements")
+				console.log(output.results[0]);
+				
+				console.log(output.results[0].lexicalEntries[0]);
 				
 				var count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
 				
