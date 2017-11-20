@@ -114,15 +114,26 @@ module.exports =
 				}
 				else if (count == 1){
 					str = "<speak><prosody rate='medium'>There is <emphasis>" + count + "</emphasis><break/> definition of the word " + output.results[0].id + "<break time='1s'/>";
+					
+					console.log ("make str 1 = " + str);
 					str = str + " The definition is <break/>" + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + "<break time='1s'/>";
+					
+					console.log (str);
+					console.log ("make str 2 = " + str);
+					
 					if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('examples'))
 					{
 						str = str + "<emphasis>Example</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "<break time='1s'/>";
+						
+						console.log ("make str 3 = " + str);
 					}
 					else
 					{
 						str = str + "Example not available for this definition  <break time='1s'/>";
+						console.log ("make str 4 = " + str);
 					}				
+					
+					console.log ("make str 5 = " + str);
 				}
 				else{
 					str = "<speak><prosody rate='medium'>No definition found or word not understood";
@@ -132,6 +143,8 @@ module.exports =
 				{			
 				}
 				str = str + "</prosody></speak>";
+				
+				console.log ("make str 6 = " + str);
 				
 				callback(sessionAttributes, {
 						'outputSpeech':
