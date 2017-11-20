@@ -123,7 +123,7 @@ module.exports =
 					
 					if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('examples'))
 					{
-						str = str + "<emphasis>Example</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[counter].examples[0].text + "<break time='1s'/>";
+						str = str + "<emphasis>Example</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[0].examples[0].text + "<break time='1s'/>";
 						
 						console.log ("make str 3 = " + str);
 					}
