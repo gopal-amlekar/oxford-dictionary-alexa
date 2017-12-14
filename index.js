@@ -12,21 +12,13 @@ app.use(bodyParser.json())
 app.set('port', (process.env.PORT || 5000));
 
 app.post(process.env.WEB_APP_ROUTE, function(request, response){
-    console.log (request.body);
-    console.log (request.body.context);
-    
 
-    console.log('Someone POSTED a cool request');
-    //console.log(request);
-    console.log('POSTING BACK THE RESULTS');
+//    console.log (request.body.context);
+    
 
     var event = request.body;
     var context = request.body.context;
 
-    console.log('Inside alexa handler');
-    console.log("Event is: ", event);
-    console.log("Context is: ", context);
-    console.log('Request is: ', event.request);
     try
     {
         
@@ -60,13 +52,12 @@ app.post(process.env.WEB_APP_ROUTE, function(request, response){
                 event.request.intent,
                 function(sessionAttributes, speechletResponse)
                 {
-                  console.log ('Final callback');
                   response.send(intentProc.buildResponse (sessionAttributes, speechletResponse));
                   //console.log ("Sent response: ", restosend);
                 }
             );
                   
-            console.log ('Done with the intents');
+//            console.log ('Done with the intents');
             
         } // end all intent requests
         else if (event.request.type === 'SessionEndedRequest')
@@ -80,7 +71,7 @@ app.post(process.env.WEB_APP_ROUTE, function(request, response){
         response.send(err);
     }
 
-    console.log ('POST job done');
+//    console.log ('POST job done');
 
 });
 

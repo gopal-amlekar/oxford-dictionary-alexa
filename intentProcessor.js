@@ -6,8 +6,7 @@ function askOxford (word_id, url_path)
 				
 	var app_id = process.env.OXFORD_APP_ID;	// Get this from the Oxford dictionary API webpage
 	var app_key = process.env.OXFORD_APP_KEY; // Get this from the Oxford dictionary API webpage
-	//var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/" + word_id + url_path;// + "/definitions";
-	var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1" + url_path; //entries/en/" + word_id + url_path;// + "/definitions";
+	var oxfordURL = "https://od-api.oxforddictionaries.com:443/api/v1" + url_path;
 	var hdr = {"Accept":"application/json", "app_id": app_id, "app_key": app_key };
 						
 	console.log ("Trying Oxford API now");
@@ -60,36 +59,14 @@ module.exports =
 		else if (intent_name === 'OxfordIntent')
 		{
 			word_id = intent.slots.Word.value.toLowerCase();
-			console.log (word_id);
+			//console.log (word_id);
 			var sessionAttributes ={};
 					
 			console.log ('Recd oxford dictionary Intent');
 			//console.log (word_id)
 			url_path = "/entries/en/" + word_id;
 			askOxford(word_id, url_path).then(function(output) 
-			{
-				console.log ("Next in the chain being executed");
-				console.log(output);
-				console.log ("printing results object");
-				console.log(output.results);
-				
-				console.log ("printing lexical entries object");
-				console.log(output.results[0].lexicalEntries);
-				console.log ("printing  entries object");
-				console.log(output.results[0].lexicalEntries[0].entries);
-				
-				console.log("outputing zeroth elements")
-				console.log ("here is the output.results[0]");
-				console.log(output.results[0]);
-				console.log ("here is the output.results[0].lexicalEntries[0]");
-				console.log(output.results[0].lexicalEntries[0]);
-				
-				console.log ("here is the output.results[0].lexicalEntries[0].entries[0]");
-				console.log(output.results[0].lexicalEntries[0].entries[0]);
-				
-				console.log ("and the senses");
-				console.log(output.results[0].lexicalEntries[0].entries[0].senses);
-				
+			{				
 				var count = (output.results[0].lexicalEntries[0].entries[0].senses).length;
 				console.log ("Found " + count + " definitions");
 				var str = "";
@@ -115,25 +92,16 @@ module.exports =
 				else if (count == 1){
 					str = "<speak><prosody rate='medium'>There is <emphasis>" + count + "</emphasis><break/> definition of the word " + output.results[0].id + "<break time='1s'/>";
 					
-					console.log ("make str 1 = " + str);
 					str = str + " The definition is <break/>" + output.results[0].lexicalEntries[0].entries[0].senses[0].definitions[0] + "<break time='1s'/>";
-					
-					console.log (str);
-					console.log ("make str 2 = " + str);
-					
+										
 					if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('examples'))
 					{
 						str = str + "<emphasis>Example</emphasis><break/>" + output.results[0].lexicalEntries[0].entries[0].senses[0].examples[0].text + "<break time='1s'/>";
-						
-						console.log ("make str 3 = " + str);
 					}
 					else
 					{
 						str = str + "Example not available for this definition  <break time='1s'/>";
-						console.log ("make str 4 = " + str);
 					}				
-					
-					console.log ("make str 5 = " + str);
 				}
 				else{
 					str = "<speak><prosody rate='medium'>No definition found or word not understood";
@@ -143,8 +111,6 @@ module.exports =
 				{			
 				}
 				str = str + "</prosody></speak>";
-				
-				console.log ("make str 6 = " + str);
 				
 				callback(sessionAttributes, {
 						'outputSpeech':
@@ -183,11 +149,7 @@ module.exports =
 			//console.log (word_id)
 			url_path = "/entries/en/" + word_id + "/synonyms";
 			askOxford(word_id, url_path).then(function(output) 
-			{
-				console.log ("Next in the chain being executed");
-				console.log(output);
-				
-				
+			{				
 				var str = "<speak><prosody rate='medium'> Some synonyms for " + output.results[0].id + " are <break time='1s'/>";
 								
 				if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('synonyms'))
@@ -245,10 +207,6 @@ module.exports =
 			url_path = "/entries/en/" + word_id + "/antonyms";
 			askOxford(word_id, url_path).then(function(output) 
 			{
-				console.log ("Next in the chain being executed");
-				console.log(output);
-				
-				
 				var str = "<speak><prosody rate='medium'> Some Antyonyms for " + output.results[0].id + " are <break time='1s'/>";
 								
 				if (output.results[0].lexicalEntries[0].entries[0].senses[0].hasOwnProperty('antonyms'))
