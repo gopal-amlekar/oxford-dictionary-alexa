@@ -1,0 +1,40 @@
+{
+  "intents": [
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "Word",
+          "type": "ANY_WORD"
+        }
+      ],
+      "intent": "OxfordIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "Word",
+          "type": "ANY_WORD"
+        }
+      ],
+      "intent": "SynonymIntent"
+    },
+    {
+      "slots": [
+        {
+          "name": "Word",
+          "type": "ANY_WORD"
+        }
+      ],
+      "intent": "AntonymIntent"
+    }
+  ]
+}

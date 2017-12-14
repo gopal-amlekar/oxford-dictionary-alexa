@@ -1,0 +1,7 @@
+Custom Slot Type: ANY_WORD
+Slot-Values:
+one
+two
+three
+four
+five

@@ -1,0 +1,22 @@
+OxfordIntent Tell me the meaning of {Word}
+OxfordIntent What is the meaning of {Word}
+OxfordIntent What is meant by {Word}
+OxfordIntent Tell me definition of {Word}
+OxfordIntent What is definition of {Word}
+OxfordIntent about {Word}
+OxfordIntent {Word}
+OxfordIntent What is {Word}
+SynonymIntent tell me synonyms of {Word}
+SynonymIntent what are synonyms of {Word}
+SynonymIntent what is the synonym of {Word}
+SynonymIntent Can you give a few synonyms of {Word}
+SynonymIntent give me some synonyms of {Word}
+SynonymIntent what are the words having same meaning as {Word}
+SynonymIntent tell me few words with same meaning as {Word}
+AntonymIntent tell me antonyms of {Word}
+AntonymIntent what are antonyms of {Word}
+AntonymIntent what is the antonyms of {Word}
+AntonymIntent Can you give a few antonyms of {Word}
+AntonymIntent give me some antonyms of {Word}
+AntonymIntent what are the words having opposite meaning of {Word}
+AntonymIntent tell me few words with opposite meaning as {Word}
