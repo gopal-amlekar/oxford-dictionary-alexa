@@ -11,6 +11,8 @@ Follow the steps in this readme to deploy the skill on your own.
 
 #### Prerequisites
 
+##### Services and Accounts
+
 Before proceeding, you will need to create accounts for the following services.
 
 * Amazon Developer Account - [https://developer.amazon.com/alexa](https://developer.amazon.com/alexa)
@@ -21,6 +23,12 @@ You will also need 'git' installed on your system. You can download git from [he
 
 
 Though the skill code is written in Node.JS, you don't really need to install node on your local machine. Since we are hosting the app on Heroku, code execution happens on Heroku server for us.
+
+
+##### Hardware
+
+To test the skill, you can use either an Amazon Echo or similar device or go for Raspberry Pi with a slightly involved setup. Another alternative is to use products with Alexa voice services integrated such as [WisCore from RAK Wireless](http://www.rakwireless.com/en/WisKeyOSH/WisCore). The instructions to setup WisCore are provided in the [README file here](wiscore/README.md).
+
 
 #### Setup Alexa Skill
 
@@ -46,9 +54,11 @@ You will be presented with a screen to configure your Alexa skill. On this first
 
 ![Alexa Skill Configuration](images/oxford-alexa-3.png)
 
+
 Click on the save button.
 
-#### Step 3
+
+#### Step 4
 
 An application ID will be generated and shown. Copy this ID to a text file as we will need it later when configuring the skill code to be deployed on Heroku.
 
@@ -56,7 +66,7 @@ An application ID will be generated and shown. Copy this ID to a text file as we
 
 Click on the 'Next' button.
 
-#### Step 4
+#### Step 5
 
 Your skill is created now. You now need to tell Alexa how users will interact with this skill. So you need to configure this Voice User Interface on the next screen.
 
@@ -69,7 +79,7 @@ Slots are similar additional parameters supplied to intents. In our case, the wo
 Finally, sample utterances are the likely sentences that the user will speak. So the sample utterances consist of intents and slots along with other parts of the sentence to make it a complete question.
 
 
-##### Step 4a
+##### Step 5a
 
 From this github repository, open file [interaction/intent_schema.json](interaction/intent_schema.json)
 Copy and paste entire contents of this file to the Intent Schema window.
@@ -77,7 +87,7 @@ Copy and paste entire contents of this file to the Intent Schema window.
 ![Alexa Skill Configuration](images/oxford-alexa-5.png)
 
 
-##### Step 4b
+##### Step 5b
 
 We need to create a new slot type and add in some dummy values to it. Since we don't know the word that a user wants to lookup into the dictionary, we need to give some dummy values to it.
 
@@ -87,7 +97,7 @@ You can refer to file [interaction/slots.txt](interaction/slots.txt) for these v
 
 ![Alexa Skill Configuration](images/oxford-alexa-6.png)
 
-##### Step 4c
+##### Step 5c
 
 The file [interaction/slots.txt](interaction/slots.txt) contains the sample utterances that the user is expected to speak. Alexa tries to match the sentence user speaks to one of these sentences.
 
@@ -95,46 +105,68 @@ Copy and paste entire contents of this file into the 'Sample Utterances' window.
 
 ![Alexa Skill Configuration](images/oxford-alexa-7.png)
 
+
+
 Click on 'Next' button.
 
 
-#### Step 5
+
+
+#### Step 6
 
 At this point, your skill has been created and an interaction model has been provided to the skill. Next, we need point the skill to our web app which is hosting the  execution code to access Oxford dictionary and retrieve the details.
 
+
 ![Alexa Skill Configuration](images/oxford-alexa-8.png)
+
 
 We will come back to this stage after deploying the skill code on Heroku.
 
+
 #### Setup Oxford Dictionary API
 
-#### Step 6
+#### Step 7
 
 Before creating the Heroku web app, we need to get the credentials from Oxford Dictionary to use the API.
 
 Sign in to [https://developer.oxforddictionaries.com](https://developer.oxforddictionaries.com) using your login ID and password.
 
+
+
 ![Oxford Dictionary API](images/oxford-dict-1.png)
+
 
 
 Click on 'credentials' button to get your credentials.
 
+
+
 ![Oxford Dictionary API](images/oxford-dict-2.png)
 
 
+
 Click on the app name to get the application ID and the credential.
+
+
+
 ![Oxford Dictionary API](images/oxford-dict-3.png)
+
 
 
 From this screen, copy the Application ID and Application Keys. We will use these details while configuring the Heroku web app.
 
+
+
 ![Oxford Dictionary API](images/oxford-dict-4.png)
+
+
 
 You can now sign out from the Oxford dictionary website.
 
+
 #### Setup Skill Code on Heroku
 
-#### Step 7
+#### Step 8
 
 Let's now switch to creating our web app for the skill. Keep your heroku credentials handy.
 
@@ -145,7 +177,7 @@ From [Heroku devcenter](https://devcenter.heroku.com/articles/getting-started-wi
 ![Heroku web app](images/heroku-1.png)
 
 
-#### Step 8
+#### Step 9
 
 Once the download finishes, run the installer to install Heroku CLI on your machine. After the installation is finished, you can use Heroku command from the command shell. If you are using windows, fire up a command prompt (cmd.exe).
 
@@ -160,7 +192,7 @@ Logged in as dev@company.com
 ...
 ```
 
-#### Step 9
+#### Step 10
 
 Next, let's create an app on Heroku.
 
@@ -174,19 +206,19 @@ Git remote heroku added
 So Heroku has created a web app for you now. It has assigned a random name to the app. In addition, it has created a git repository for the app source code and also added git remote to your local repository. This makes it easy to push your code to your app.
 
 
-#### Step 10
+#### Step 11
 
 Before we push the source code to the web app, we need to configure a few environment variables for our app.
 
-* Configure variable AMAZON_APP_KEY with the Amazon app ID you got from step 3 above. This is used in the web app to authenticate that the requests are coming from your own Alexa skill only.
+* Configure variable AMAZON_APP_KEY with the Amazon app ID you got from step 4 above. This is used in the web app to authenticate that the requests are coming from your own Alexa skill only.
 
 * Configure variable WEB_APP_ROUTE to some random value. This becomes part of the endpoint to be configured in Alexa skill. You need to make sure that this value is preceded with a forward slash. In this case, I have chosen to use 'query-oxford' as the web app route and so the value for WEB_APP_ROUTE environment variable becomes '/query-oxford'.
 
 The web app also needs authentication details to access Oxford Dictionary API.
 
-* Configure variable OXFORD_APP_ID to the Application ID obtained from your Oxford dictionary account in step 6 above.
+* Configure variable OXFORD_APP_ID to the Application ID obtained from your Oxford dictionary account in step 7 above.
 
-* COnfigure variable OXFORD_APP_KEY to the Applicaion Key obtained from your Oxford dictionary account in step 6 above.
+* COnfigure variable OXFORD_APP_KEY to the Applicaion Key obtained from your Oxford dictionary account in step 7 above.
 
 ```
 oxford-dictionary-alexa$ heroku config:set AMAZON_APP_KEY=YOUR_AMAZON_SKILL_APPLICATION_ID
@@ -199,7 +231,7 @@ oxford-dictionary-alexa$ heroku config:set OXFORD_APP_KEY=YOUR_OXFORD_APP_KEY
 
 ```
 
-#### Step 11
+#### Step 12
 
 Let's now push our code to Heroku and deploy the app. A single Heroku command to push the source code takes care of uploading source code to Heroku as well as building and deploying the app.
 
@@ -227,7 +259,7 @@ To https://git.heroku.com/serene-fog-298.git * [new branch] master -> master
 As the console output shows, the app is now deployed and running on Heroku. You can view the status of app and other details on Heroku dashboard if you wish.
 
 
-#### Step 12
+#### Step 13
 
 Make a note of the endpoint now. In this case, our app is running at https://serene-fog-298.herokuapp.com and we have configured the WEB_APP_ROUTE to 'query-oxford'. So the endpoint to access this app becomes: https://serene-fog-298.herokuapp.com/query-oxfordURL
 
@@ -236,23 +268,23 @@ We will need this endpoint to be configured in the Alexa skill.
 
 #### Configure Alexa Skill Endpoint
 
-#### Step 13
+#### Step 14
 
-Go back to the Alexa Skill Configuration page we left in Step 5 above.
+Go back to the Alexa Skill Configuration page we left in Step 6 above.
 
 ![Alexa Skill Configuration](images/oxford-alexa-8.png)
 
 
 Select Service Endpoint Type as 'HTTPS'.
 
-In the text box next to 'Default', add the complete endpoint of our web app obtained in step 12 above.
+In the text box next to 'Default', add the complete endpoint of our web app obtained in step 13 above.
 
 
 ![Alexa Skill Configuration](images/oxford-alexa-9.png)
 
 Leave other settings to default and click on 'Next'.
 
-#### Step 14
+#### Step 15
 
 On the next screen, select the option for SSL certificate endpoint as '*My development endpoint is a sub-domain of a domain that has a wildcard certificate from a certificate authority*'
 
@@ -262,16 +294,23 @@ Click on 'Next'
 
 #### Test Alexa Skill
 
-#### Step 15
+#### Step 16
 
 
 Your skill is now enabled for testing as shown by the green check marks on left side.
 
+
+
 ![Alexa Skill Configuration](images/oxford-alexa-b.png)
+
+
 
 To quickly test the skill, scroll down to Service Simulator section and type in some sample utterance in the 'Enter Utterance' text box. You should get a valid answer in the Service Response text box. You can also listen to the received answer by clicking on the 'Listen' button with a speaker icon.
 
+
+
 ![Alexa Skill Configuration](images/oxford-alexa-c.png)
+
 
 
 The configuration is complete now. You can test the skill with your voice using an Alexa enabled device such as Echo or a Raspberry Pi running Alexa service or the RAK Wireless Wiscore.
