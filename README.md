@@ -22,6 +22,8 @@ You will also need 'git' installed on your system. You can download git from [he
 
 Though the skill code is written in Node.JS, you don't really need to install node on your local machine. Since we are hosting the app on Heroku, code execution happens on Heroku server for us.
 
+#### Setup Alexa Skill
+
 #### Step 1
 
 
@@ -104,6 +106,8 @@ At this point, your skill has been created and an interaction model has been pro
 
 We will come back to this stage after deploying the skill code on Heroku.
 
+#### Setup Oxford Dictionary API
+
 #### Step 6
 
 Before creating the Heroku web app, we need to get the credentials from Oxford Dictionary to use the API.
@@ -128,6 +132,7 @@ From this screen, copy the Application ID and Application Keys. We will use thes
 
 You can now sign out from the Oxford dictionary website.
 
+#### Setup Skill Code on Heroku
 
 #### Step 7
 
@@ -229,15 +234,19 @@ Make a note of the endpoint now. In this case, our app is running at https://ser
 We will need this endpoint to be configured in the Alexa skill.
 
 
+#### Configure Alexa Skill Endpoint
+
 #### Step 13
 
 Go back to the Alexa Skill Configuration page we left in Step 5 above.
+
+![Alexa Skill Configuration](images/oxford-alexa-8.png)
+
 
 Select Service Endpoint Type as 'HTTPS'.
 
 In the text box next to 'Default', add the complete endpoint of our web app obtained in step 12 above.
 
-![Alexa Skill Configuration](images/oxford-alexa-8.png)
 
 ![Alexa Skill Configuration](images/oxford-alexa-9.png)
 
@@ -250,6 +259,8 @@ On the next screen, select the option for SSL certificate endpoint as '*My devel
 ![Alexa Skill Configuration](images/oxford-alexa-a.png)
 
 Click on 'Next'
+
+#### Test Alexa Skill
 
 #### Step 15
 
